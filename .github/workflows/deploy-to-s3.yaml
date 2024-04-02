@@ -48,7 +48,7 @@ jobs:
       if: success() # utilisée pour s'assurer que le déploiement vers AWS S3 ne se produit que si toutes les étapes précédentes du workflow se sont terminées avec succès. Cela permet d'éviter de déployer des modifications potentiellement invalides ou incomplètes.
       run: |
         ls -la
-        aws s3 sync . s3://${{ secrets.AWS_BUCKET_NAME }} --delete --exclude ".git/*" --exclude ".github/*"
+        aws s3 sync . s3://${{ secrets.ISICBA }} --delete --exclude ".git/*" --exclude ".github/*"
       env:
         AWS_BUCKET_NAME: ${{ secrets.ISICBA }}
         # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
