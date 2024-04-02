@@ -19,7 +19,7 @@ jobs:
         # Vérifier que le remplacement a été effectué correctement
         grep -q "data-commit-id=\"${{ github.sha }}\"" contact.html && echo "ID du commit inséré avec succès." || { echo "Erreur : ID du commit non inséré."; exit 1; }
       env:
-        AWS_BUCKET_NAME: ${{ secrets.isicba }}
+        AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
 
     - name: Install AWS CLI 2
       run: |
