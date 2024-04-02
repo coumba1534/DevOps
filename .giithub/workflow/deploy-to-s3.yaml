@@ -1,5 +1,9 @@
-name: Deploy to S3
-on: [main]
+name: 'Deploy to S3'
+
+on: 
+  push:
+    branches: 
+       - dev
 
 jobs:
   deploy:
@@ -22,5 +26,23 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y python3-pip
         sudo pip3 install awscli
+
+    - name: Configure AWS credentials
+      run: |
+        aws configure set aws_access_key_id ${{ secrets.AWS_CLI_KEY_ID  }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_CLI_KEY }}
+        aws configure set region eu-west-3  
+
+    - name: Check if bucket exists 
+      run: |
+        if aws s3api head-bucket --bucket $isicba; then
+          echo "Bucket exists."
+        else
+          echo "Bucket does not exist. Stopping the pipeline."
+          exit 1
+        fi
+      env:
+        AWS_BUCKET_NAME: ${{ secrets.isicba }}    
+
 
 
