@@ -1,13 +1,20 @@
 # n-hesitez pas a corriger les erreurs presentes dans cette configuration
 name: Deploy to Ubuntu
 
-on: [push]
+on:
+  push:
+    branches:  
+      - prod
+
+
+
+
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    steps:
+ steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
@@ -16,7 +23,7 @@ jobs:
       run: |
         sed -i "s/data-commit-id=\".*\"/data-commit-id=\"${{ github.sha }}\"/g" index.html
         # Vérifier que le remplacement a été effectué correctement
-        grep -q "data-commit-id=\"${{ github.sha }}\"" contact.html && echo "ID du commit inséré avec succès." || { echo "Erreur : ID du commit non inséré."; exit 1; }
+        grep -q "data-commit-id=\"${{ github.sha }}\"" index.html && echo "ID du commit inséré avec succès." || { echo "Erreur : ID du commit non inséré."; exit 1; }
       env:
         AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
 
