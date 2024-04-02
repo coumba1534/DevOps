@@ -35,14 +35,14 @@ jobs:
 
     - name: Check if bucket exists 
       run: |
-        if aws s3api head-bucket --bucket $isicba; then
+        if aws s3api head-bucket --bucket $AWS_BUCKET_NAME; then
           echo "Bucket exists."
         else
           echo "Bucket does not exist. Stopping the pipeline."
           exit 1
         fi
       env:
-        AWS_BUCKET_NAME: ${{ secrets.isicba }}    
+        AWS_BUCKET_NAME: ${{ secrets.ISICBA }}    
 
 
 

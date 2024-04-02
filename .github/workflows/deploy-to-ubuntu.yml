@@ -1,5 +1,5 @@
 # n-hesitez pas a corriger les erreurs presentes dans cette configuration
-name: Deploy to Ubuntu
+name: 'Deploy to Ubuntu'
 
 on:
   push:
